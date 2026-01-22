@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ExtensionManifest Version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ExtensionBundleId="yyj.PSDTool" ExtensionBundleName="yyj.PSDTool" ExtensionBundleVersion="5.0.18">
+    <Author>yyj</Author>
+    <Contact mailto="**@abc.com" />
+    <Abstract href="http://www.superslide2.com/" />
+    <ExtensionList>
+        <Extension Id="yyj.PSDTool" Version="1.0" /> <!-- 插件ID 和 版本-->
+    </ExtensionList>
+
+    <ExecutionEnvironment>
+        <HostList>
+            <!-- 设置插件能在 14.0 版本之后 PhotoShop 中运行-->
+            <Host Name="PHXS" Version="[16.0,99.9]"/>
+            <Host Name="PHSP" Version="[16.0,99.9]"/>
+        </HostList>
+
+        <LocaleList>
+            <Locale Code="All" />
+        </LocaleList>
+
+        <RequiredRuntimeList>
+            <RequiredRuntime Name="CSXS" Version="6.0" />
+        </RequiredRuntimeList>
+
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <Extension Id="yyj.PSDTool">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./index.html</MainPath> <!-- 程序入口-->
+                    <CEFCommandLine>
+                        <Parameter>--enable-nodejs</Parameter>
+                    </CEFCommandLine>
+                    <ScriptPath>./jsx/main.jsx</ScriptPath>
+                </Resources>
+
+                <Lifecycle>
+                    <AutoVisible>true</AutoVisible>
+                    <StartOn></StartOn>
+                </Lifecycle>
+
+                <UI>
+                    <Type>Panel</Type> <!-- 插件模式：面板-->
+                    <Menu>Psd操作工具</Menu> <!-- 插件在面板上的标题-->
+                    <Geometry> <!-- 插件尺寸-->
+                        <Size>
+                            <Height>320</Height>
+                            <Width>350</Width>
+                        </Size>
+                        <MaxSize>
+                            <Height>720</Height>
+                            <Width>660</Width>
+                        </MaxSize>
+                        <MinSize>
+                            <Height>300</Height>
+                            <Width>260</Width>
+                        </MinSize>
+                    </Geometry>
+                    <Icons><!-- 插件图标-->
+                        <Icon Type="Normal">./img/icon.png</Icon>
+                        <Icon Type="RollOver">./img/icon.png</Icon>
+                        <Icon Type="DarkNormal">./img/icon.png</Icon>
+                        <Icon Type="DarkRollOver">./img/icon.png</Icon>
+                    </Icons>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+    </DispatchInfoList>
+</ExtensionManifest>
