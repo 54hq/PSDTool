@@ -79,3 +79,76 @@ var deleteEmptyLayer = function(){
         alert("没有空白图层");
     }
 }
+
+var amendMode = function(){
+    alert("开始修正")
+    AmendMode();
+    alert("结束修正")
+}
+
+var removePreviewLayout = function(){
+    RemovePreviewLayout();
+    alert("移除完成");
+}
+
+var checkSameLayerId = function(){
+    CheckSameLayerId();
+}
+
+var clearLock = function(){
+    ClearLock();
+    alert("清除完成")
+}
+
+var createIconSize = function(width, height){
+    CreateIconSize(width, height);
+}
+
+var checkTextEffect = function(){
+    try{
+        CheckTextEffect();
+    }
+    catch(e){
+        alert(e);
+    }
+}
+
+var checkSameNameLayerContent = function() {
+    try {
+        CheckSameNameLayerContent();
+    } catch (e) {
+        alert(e);
+    }
+}
+
+var checkImageOutOfBounds = function() {
+    try {
+        CheckImageOutOfBounds();
+    } catch (e) {
+        alert(e);
+    }
+}
+
+var selectImgPrefixLayers = function() {
+    try {
+        SelectImgPrefixLayers();
+    } catch (e) {
+        alert(e);
+    }
+}
+
+var selectEffectOrModeLayers = function() {
+    try {
+        SelectEffectOrModeLayers();
+    } catch (e) {
+        alert(e);
+    }
+}
+
+var checkAllLayersOpen = function() {
+    try {
+        CheckAllLayersOpen();
+    } catch (e) {
+        alert(e);
+    }
+}

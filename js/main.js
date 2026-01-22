@@ -22,6 +22,11 @@ function InitButtonListener(){
     AddButtonListener("checkSameNameImageButton", "checkSameNameImage()");
     AddButtonListener("checkSmartObjectFilterFXButton", "checkSmartObjectFilterFX()");
     AddButtonListener("deleteEmptyLayerButton", "deleteEmptyLayer()");
+    AddButtonListener("checkSameNameContentButton", "checkSameNameLayerContent()");
+    AddButtonListener("checkOutOfBoundsButton", "checkImageOutOfBounds()");
+    AddButtonListener("selectImgPrefixButton", "selectImgPrefixLayers()");
+    AddButtonListener("selectEffectModeButton", "selectEffectOrModeLayers()");
+    AddButtonListener("openAllLayersButton", "checkAllLayersOpen()");
     document.getElementById("openSpecificationButton").addEventListener("click", () => {
         csInterface.openURLInDefaultBrowser("https://doc.weixin.qq.com/doc/w3_AVgA3waFAOwWRTtxGSiSfCZryFZ7B?scode=AOwAYgeoAAkFbnVxkZAVgA3waFAOw");
     });
@@ -54,5 +59,5 @@ window.addEventListener('load', () => {
     loadJSX("common/layer.jsx");
     loadJSX("function/check_layer.jsx");
     loadJSX("function/layer_utils.jsx");
-    // Removed unused scripts: layoutInfo.jsx, layout.jsx
+    loadJSX("function/new_features.jsx");
 });

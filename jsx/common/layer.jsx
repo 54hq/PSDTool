@@ -262,6 +262,14 @@ Layer.prototype.setMode = function (mode) {
     executeAction(charIDToTypeID("setd"), desc, DialogModes.NO);
 }
 
+Layer.prototype.mode = function () {
+    var layerReference = new ActionReference();
+    layerReference.putProperty(charIDToTypeID("Prpr"), charIDToTypeID("Md  "));
+    layerReference.putIdentifier(charIDToTypeID("Lyr "), this.id);
+    var descriptor = executeActionGet(layerReference);
+    return typeIDToStringID(descriptor.getEnumerationValue(charIDToTypeID("Md  ")));
+}
+
 Layer.prototype.unlock = function(){
     var ref = new ActionReference();
     ref.putIdentifier(charIDToTypeID("Lyr "), this.id);
