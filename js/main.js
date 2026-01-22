@@ -20,86 +20,16 @@ function AddToggleListener(toggleId, func){
     });
 }
 
-function AddCreateLayoutListButtonListener() {
-    var button = document.getElementById("createLayoutListButton");
-    button.addEventListener('click', () => {
-        var listType = document.getElementById("listType").value;
-        var layoutType = document.getElementById("layoutType").value;
-        var maxColumn = document.getElementById("maxColumn").value;
-        var maxRow = document.getElementById("maxRow").value;
-        var gapHorizontal = document.getElementById("gapHorizontal").value;
-        var gapVertical = document.getElementById("gapVertical").value;
-        var paddingTop = document.getElementById("paddingTop").value;
-        var paddingLeft = document.getElementById("paddingLeft").value;
-        var params = [listType, layoutType, maxColumn, maxRow, gapHorizontal, gapVertical, paddingTop, paddingLeft];
-        var func = `createLayoutList(${params.join(',')})`;
-        csInterface.evalScript(func);
-    });
-}
-
-function AddCreatePreviewLayoutButtonListener() {
-    var button = document.getElementById("createPreviewLayoutButton");
-    button.addEventListener('click', () => {
-        var layoutType = document.getElementById("layoutType").value;
-        var maxColumn = document.getElementById("maxColumn").value;
-        var maxRow = document.getElementById("maxRow").value;
-        var gapHorizontal = document.getElementById("gapHorizontal").value;
-        var gapVertical = document.getElementById("gapVertical").value;
-        var paddingTop = document.getElementById("paddingTop").value;
-        var paddingLeft = document.getElementById("paddingLeft").value;
-        var params = [layoutType, maxColumn, maxRow, gapHorizontal, gapVertical, paddingTop, paddingLeft];
-        var func = `previewListLayout(${params.join(',')})`;
-        csInterface.evalScript(func);
-    });
-}
-
-function AddGammaCorrectionButtonListener() {
-    var button = document.getElementById("gammaCorrectionButton");
-    button.addEventListener('click', () => {
-        var value = document.getElementById("gammaCorrectionNumber").value;
-        var func = "gammaCorrection(" + value + ")";
-        csInterface.evalScript(func);
-    });
-}
-
-function AddCreateIconSizeButtonListener() {
-    var button = document.getElementById("createIconSizeButton");
-    button.addEventListener('click', () => {
-        var width = document.getElementById("iconSizeWidth").value;
-        var height = document.getElementById("iconSizeHeight").value;
-        var params = [width, height];
-        var func = `createIconSize(${params.join(',')})`;
-        csInterface.evalScript(func);
-    });
-}
-
 function InitButtonListener(){
     AddButtonListener("checkFontButton", "checkFont()");
     AddButtonListener("checkExportLayer", "checkExportLayer()");
     AddButtonListener("standardizeButton", "standardizeLayerNames()");
     AddButtonListener("checkSameNameImageButton", "checkSameNameImage()");
-    AddButtonListener("renameButton", "renameLayersWithLayerId()");
-    AddCreateLayoutListButtonListener();
-    AddCreatePreviewLayoutButtonListener();
-    AddGammaCorrectionButtonListener();
-    AddCreateIconSizeButtonListener();
-    AddButtonListener("createMaskButton", "createScrollViewMask()");
-    AddButtonListener("hideIgnoreLayerButton", "hideIgnoreLayer()");
-    AddButtonListener("ignoreSelectLayerButton", "ignoreSelectLayerButton()");
-    AddButtonListener("printSelectLayerSizeButton", "printSelectLayerSize()");
-    AddButtonListener("comparePsdButton", "comparePsds()");
-    AddButtonListener("createTempPurePSDButton", "CreateTempPurePSD()");
-    AddButtonListener("genSpecifiedImageButton", "genSpecifiedImage()");
-    AddButtonListener("previewFormatButton", "previewFormat()");
-    AddButtonListener("getLayerCountButton", "getLayerCount()");
-    AddButtonListener("showAllLayerButton", "showAllLayer()");
     AddButtonListener("checkSmartObjectFilterFXButton", "checkSmartObjectFilterFX()");
     AddButtonListener("checkGroupEffectButton", "checkGroupEffect()");
     AddButtonListener("deleteEmptyLayerButton", "deleteEmptyLayer()");
     AddButtonListener("amendModeButton", "amendMode()");
-    AddButtonListener("removePreviewLayoutButton", "removePreviewLayout()");
     AddButtonListener("checkSameLayerIdButton", "checkSameLayerId()");
-    AddButtonListener("clearLockButton", "clearLock()");
     AddButtonListener("checkTextEffectButton", "checkTextEffect()");
     document.getElementById("openSpecificationButton").addEventListener("click", () => {
         csInterface.openURLInDefaultBrowser("https://doc.weixin.qq.com/doc/w3_AVgA3waFAOwWRTtxGSiSfCZryFZ7B?scode=AOwAYgeoAAkFbnVxkZAVgA3waFAOw");
