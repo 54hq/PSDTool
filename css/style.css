@@ -1,136 +1,193 @@
-*{
-    padding:0;
-    margin:0;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
-html,body{
-    height:100%;
-    font-size:12px;
-}
-body{
+
+html, body {
+    height: 100%;
+    font-family: "Adobe Clean", "Segoe UI", sans-serif;
+    font-size: 12px;
     background: #535353;
-    color:#fff;
+    color: #e0e0e0;
+    overflow: hidden;
 }
-button{
-    font-size: 12px;;
-    padding:5px 10px;
-    border-radius: 3px;
-    border:1px solid #262626;
-    color:#fff;
-    background:#F2F2F2;
-    background: linear-gradient(#333, #000);
-    box-shadow:#555 0 1px 0 inset;
-    outline:none;
-}
-button:active{
-    background: linear-gradient(#000, #333);
-}
-.app h3{
-    text-align:center;
-    color:#fff;
-    padding:20px 0;
-}
-.main{
-    text-align: left;
+
+.app {
     display: flex;
-    height:100%;
-    justify-content: center;
-    align-items: left;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
 }
-input{
-    border:1px solid #ababab;
-    background:#909090;
-    padding:3px;
-    width:50px;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #3e3e3e;
 }
-input[type=number]{
-    
+
+.header h3 {
+    font-size: 14px;
+    font-weight: 600;
 }
-.row{
-    padding:5px 0;
-}
-.row label{
-    display:inline-block;
-    width:80px;
-    text-align:center;
-}
-.row title{
-    display:inline-block;
-    width:350px;
-    text-align:center;
-    color:#ffffff;
-    font-size: 20px;
-    background:#8b8787;
-}
-/* 新增Toggle开关样式 */
-.checkbox-toggle {
-    position: relative;
-    display: inline-block;
+
+.text-btn {
+    background: transparent;
+    border: none;
+    color: #a0a0a0;
     cursor: pointer;
+    text-decoration: underline;
+    box-shadow: none;
+    padding: 0;
 }
 
-.checkbox-toggle input[type="checkbox"] {
-    opacity: 0;
-    width: 0;
-    height: 0;
+.text-btn:hover {
+    color: #fff;
 }
 
-/* 滑动轨道 */
-.checkbox-toggle .slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #666;
-    transition: .4s;
-    border-radius: 34px;
+.main-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.control-panel {
+    flex-shrink: 0;
+}
+
+.section {
+    margin-bottom: 15px;
+}
+
+.section-title {
+    font-size: 11px;
+    color: #a0a0a0;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+}
+
+button {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 3px;
+    border: 1px solid #262626;
+    color: #fff;
+    background: #464646;
+    box-shadow: inset 0 1px 0 #555;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.1s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+button:hover {
+    background: #505050;
+}
+
+button:active {
+    background: #303030;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
 }
 
-/* 滑动按钮 */
-.checkbox-toggle .slider:before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
-    background: linear-gradient(#fff, #e0e0e0);
-    border-radius: 50%;
-    transition: .4s;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+.small-btn {
+    padding: 2px 8px;
+    font-size: 10px;
 }
 
-/* 选中状态 */
-.checkbox-toggle input:checked + .slider {
-    background: #0078d4;
+.results-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #3e3e3e;
+    padding-top: 10px;
+    min-height: 0; /* Important for flex nested scrolling */
 }
 
-.checkbox-toggle input:checked + .slider:before {
-    transform: translateX(20px);
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 11px;
+    color: #a0a0a0;
 }
 
-/* 禁用状态 */
-.checkbox-toggle input:disabled + .slider {
-    background: #444 !important;
-    cursor: not-allowed;
+.result-list {
+    flex: 1;
+    overflow-y: auto;
+    background: #383838;
+    border: 1px solid #262626;
+    border-radius: 3px;
+    padding: 5px;
 }
 
-.checkbox-toggle input:disabled + .slider:before {
-    background: #999 !important;
+.empty-state {
+    color: #888;
+    text-align: center;
+    padding-top: 20px;
+    font-style: italic;
 }
 
-/* 尺寸变体 */
-.checkbox-toggle.sm { width: 40px; height: 20px; }
-.checkbox-toggle.md { width: 50px; height: 24px; }
-.checkbox-toggle.lg { width: 60px; height: 28px; }
-
-.checkbox-toggle.sm .slider:before {
-    width: 14px;
-    height: 14px;
-    transform: translateY(-1px);
+.result-item {
+    padding: 4px 6px;
+    border-bottom: 1px solid #444;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.checkbox-toggle.lg .slider:before {
-    width: 20px;
-    height: 20px;
+
+.result-item:last-child {
+    border-bottom: none;
+}
+
+.result-item:hover {
+    background: #4a4a4a;
+}
+
+.result-item .layer-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result-item .error-type {
+    color: #ff6b6b;
+    font-size: 10px;
+    margin-left: 10px;
+}
+
+.result-item.success {
+    color: #6bff84;
+    cursor: default;
+}
+.result-item.success:hover {
+    background: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #666;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #333;
 }

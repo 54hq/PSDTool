@@ -1,103 +1,146 @@
 var standardizeLayerNames = function() {
     try {
-        alert("开始规范命名，中途请不要操作");
-        StandardizeNames();
+        return StandardizeNames();
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkFont = function() {
     try {
-        alert("开始检查字体，中途请不要操作");
         var canonicalFontNameList = ["AaJXH", "HYWenHei-HEW", "HYZhengYuan-GES"];
         var layerList = GetUnlawfulFountLayerList(canonicalFontNameList, app.activeDocument.layers);
+        var result = {
+            status: "success",
+            items: []
+        };
+        
         if(layerList.length > 0){
-            alert("存在异常，已选中对应异常图层")
-            SelectLayers(layerList);
+             result.status = "warning";
+             result.message = "存在异常字体图层";
+             SelectLayers(layerList);
+             for(var i=0; i<layerList.length; i++) {
+                 var layerId = layerList[i];
+                 var layer = new Layer(layerId);
+                 result.items.push({
+                     id: layerId,
+                     name: layer.name(),
+                     desc: "字体不规范"
+                 });
+             }
+        } else {
+             result.message = "检查完成，没有规范外字体";
         }
-        else{
-            alert("检查完成，没有规范外字体");
-        }
+        return JSON.stringify(result);
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkExportLayer = function() {
     try {
-        alert("开始检查");
         var layerList = GetUnlawfulLayerList(app.activeDocument.layers);
-        SelectLayers(layerList);
+        var result = {
+            status: "success",
+            items: []
+        };
         if (layerList.length > 0) {
-            var report = "以下图层存在异常效果问题:\n";
+            SelectLayers(layerList);
+            result.status = "warning";
+            result.message = "以下图层存在异常效果问题";
             for (var i = 0; i < layerList.length; i++) {
                 var layer = new Layer(layerList[i]);
-                report += layer.name() + "\n";
+                result.items.push({
+                    id: layerList[i],
+                    name: layer.name(),
+                    desc: "异常效果"
+                });
             }
-            alert(report);
         } else {
-            alert("所有图层都符合规范。");
+            result.message = "所有图层都符合规范";
         }
+        return JSON.stringify(result);
     } catch (e) {
-        alert(e)
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkSameNameImage = function() {
     try {
-        alert("开始检查");
-        var nameDict = [];
+        var nameDict = {};
         var nameList = GetDifferentImageSameNameList(nameDict);
+        var result = {
+            status: "success",
+            items: []
+        };
+        
         if (nameList.length > 0) {
-            var report = "以下图层名称存在同名不同图问题:\n";
+            result.status = "warning";
+            result.message = "以下图层名称存在同名不同图问题";
             for (var i = 0; i < nameList.length; i++) {
-                report += nameList[i] + "\n";
+                result.items.push({
+                    name: nameList[i],
+                    desc: "同名不同尺寸"
+                });
             }
-            alert(report);
         } else {
-            alert("所有图层都符合规范。");
+            result.message = "所有图层都符合规范";
         }
+        return JSON.stringify(result);
     } catch (e) {
-        alert(e)
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkSmartObjectFilterFX = function(){
-    CheckSmartObjectFilterFX();
+    try {
+        return CheckSmartObjectFilterFX();
+    } catch (e) {
+        return JSON.stringify({status: "error", message: e.toString()});
+    }
 }
 
 var deleteEmptyLayer = function(){
-    var nameList = DeleteEmptyLayer();
-    if (nameList.length > 0) {
-        var report = "删除了以下空白图层:\n";
-        for (var i = 0; i < nameList.length; i++) {
-            report += nameList[i] + "\n";
-        }
-        alert(report);
-    } else {
-        alert("没有空白图层");
+    try {
+        return DeleteEmptyLayer();
+    } catch (e) {
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var amendMode = function(){
-    alert("开始修正")
-    AmendMode();
-    alert("结束修正")
+    try {
+        AmendMode();
+        return JSON.stringify({status: "success", message: "修正完成"});
+    } catch (e) {
+        return JSON.stringify({status: "error", message: e.toString()});
+    }
 }
 
 var removePreviewLayout = function(){
-    RemovePreviewLayout();
-    alert("移除完成");
+    try {
+        RemovePreviewLayout();
+        return JSON.stringify({status: "success", message: "移除完成"});
+    } catch (e) {
+        return JSON.stringify({status: "error", message: e.toString()});
+    }
 }
 
 var checkSameLayerId = function(){
-    CheckSameLayerId();
+    try {
+        return CheckSameLayerId();
+    } catch (e) {
+        return JSON.stringify({status: "error", message: e.toString()});
+    }
 }
 
 var clearLock = function(){
-    ClearLock();
-    alert("清除完成")
+    try {
+        ClearLock();
+        return JSON.stringify({status: "success", message: "清除完成"});
+    } catch (e) {
+        return JSON.stringify({status: "error", message: e.toString()});
+    }
 }
 
 var createIconSize = function(width, height){
@@ -106,49 +149,49 @@ var createIconSize = function(width, height){
 
 var checkTextEffect = function(){
     try{
-        CheckTextEffect();
+        return CheckTextEffect();
     }
     catch(e){
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkSameNameLayerContent = function() {
     try {
-        CheckSameNameLayerContent();
+        return CheckSameNameLayerContent();
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkImageOutOfBounds = function() {
     try {
-        CheckImageOutOfBounds();
+        return CheckImageOutOfBounds();
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var selectImgPrefixLayers = function() {
     try {
-        SelectImgPrefixLayers();
+        return SelectImgPrefixLayers();
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var selectEffectOrModeLayers = function() {
     try {
-        SelectEffectOrModeLayers();
+        return SelectEffectOrModeLayers();
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }
 
 var checkAllLayersOpen = function() {
     try {
-        CheckAllLayersOpen();
+        return CheckAllLayersOpen();
     } catch (e) {
-        alert(e);
+        return JSON.stringify({status: "error", message: e.toString()});
     }
 }

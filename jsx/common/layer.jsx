@@ -370,3 +370,12 @@ Layer.ChangeSmartObject = function(id){
     desc3695.putBoolean( idkcanDispatchWhileModal, true );
     executeAction( idinvokeCommand, desc3695, DialogModes.NO );
 }
+function selectLayerById(id) {
+    try {
+        var layer = new Layer(id);
+        layer.select();
+    } catch(e) {
+        alert('无法选中图层: ' + e);
+    }
+}
+

@@ -10,35 +10,44 @@
 
 <body>
   <div class="app">
-    <h3>PSD工具</h3>
-    <main class="main">
-      <div class="in">
-        <button id="openSpecificationButton">说明文档</button>
-        <div class="row">
-          <title>输出检查</title>
+    <div class="header">
+      <h3>PSD 工具箱</h3>
+      <button id="openSpecificationButton" class="text-btn">说明文档</button>
+    </div>
+
+    <main class="main-content">
+      <div class="control-panel">
+        <div class="section">
+          <div class="section-title">规范检查</div>
+          <div class="button-grid">
+            <button id="checkFontButton">文字规范</button>
+            <button id="checkExportLayer">异常图层</button>
+            <button id="checkSameNameImageButton">同名不同尺寸</button>
+            <button id="checkSameNameContentButton">同名内容</button>
+            <button id="checkOutOfBoundsButton">超框图片</button>
+            <button id="checkSmartObjectFilterFXButton">智能滤镜</button>
+          </div>
         </div>
-        <div class="row">
-          <label>文字规范</label><button id="checkFontButton">检查</button>
-          <label>异常图层</label><button id="checkExportLayer">检查</button>
+
+        <div class="section">
+          <div class="section-title">辅助工具</div>
+          <div class="button-grid">
+            <button id="standardizeButton">规范命名</button>
+            <button id="deleteEmptyLayerButton">删空白图层</button>
+            <button id="selectImgPrefixButton">选Img图层</button>
+            <button id="selectEffectModeButton">选效果图层</button>
+            <button id="openAllLayersButton">打开所有图层</button>
+          </div>
         </div>
-        <div class="row">
-          <label>命名规范</label><button id="standardizeButton">检查</button>
-          <label>同名不同尺寸</label><button id="checkSameNameImageButton">检查</button>
+      </div>
+
+      <div class="results-panel">
+        <div class="results-header">
+          <span>检查结果</span>
+          <button id="clearResultsButton" class="small-btn">清空</button>
         </div>
-        <div class="row">
-          <label>删除空白图层</label><button id="deleteEmptyLayerButton">开始</button>
-          <label>智能滤镜</label><button id="checkSmartObjectFilterFXButton">检查</button>
-        </div>
-        <div class="row">
-          <label>同名内容检查</label><button id="checkSameNameContentButton">检查</button>
-          <label>超框图片</label><button id="checkOutOfBoundsButton">检查</button>
-        </div>
-        <div class="row">
-          <label>Img/9Img图层</label><button id="selectImgPrefixButton">选中</button>
-          <label>效果/模式图层</label><button id="selectEffectModeButton">选中</button>
-        </div>
-        <div class="row">
-          <label>打开所有图层</label><button id="openAllLayersButton">开始</button>
+        <div id="resultList" class="result-list">
+          <div class="empty-state">请点击上方按钮进行检查</div>
         </div>
       </div>
     </main>

@@ -45,20 +45,24 @@ function StandardizeNames() {
             newName : standardizedName
         })
     })
-    ShowInvalidLayers(errorLayerInfoList);
+    return ShowInvalidLayers(errorLayerInfoList);
 }
 
 function ShowInvalidLayers(invalidLayerNames) {
+    var result = { status: "success", items: [] };
     if (invalidLayerNames.length > 0) {
-        var report = "以下图层名称被规范:\n";
+        result.status = "warning";
+        result.message = "以下图层名称被规范化:";
         for (var i = 0; i < invalidLayerNames.length; i++) {
-            report += "原名: " + invalidLayerNames[i].oldName +
-                ",  规范后: " + invalidLayerNames[i].newName + "\n";
+             result.items.push({
+                 name: invalidLayerNames[i].oldName,
+                 desc: "-> " + invalidLayerNames[i].newName
+             });
         }
-        alert(report);
     } else {
-        alert("所有图层名称都符合规范。");
+        result.message = "所有图层名称都符合规范。";
     }
+    return JSON.stringify(result);
 }
 
 function GetNodeStandizeName(layerObject, originalName){
@@ -73,7 +77,7 @@ function GetNodeStandizeName(layerObject, originalName){
     }
     else{
         layerObject.select();
-        alert(originalName + "是非法输出图层");
+        // alert(originalName + "是非法输出图层"); // 禁止 alert
         return originalName;
     }
 }
@@ -205,19 +209,28 @@ function CompareLayerSize(layerA, layerB){
 
 //#region 检查是否存在智能滤镜图层
 function CheckSmartObjectFilterFX() {
-    alert("开始检查")
     var list = [];
     Layer.loopLayers(function(layer){
         if(layer.haveFilterFX()){
             list.push(layer);
         }
     })
+    var result = { status: "success", items: [] };
     if(list.length == 0){
-        alert("无此类图层");
-        return;
+        result.message = "无此类图层";
+    } else {
+        result.status = "warning";
+        result.message = "PSD导出工具暂不支持解析智能滤镜效果,请使用生成无忽略PSD文件后解析";
+        Layer.selectLayers(list);
+        for(var i=0; i<list.length; i++){
+            result.items.push({
+                id: list[i].id,
+                name: list[i].name(),
+                desc: "智能滤镜"
+            });
+        }
     }
-    alert("选中图层，PSD导出工具暂不支持解析智能滤镜效果,请使用生成无忽略PSD文件后解析")
-    Layer.selectLayers(list);
+    return JSON.stringify(result);
 }
 //#endregion
 
@@ -229,19 +242,27 @@ function CheckGroupEffect() {
             list.push(layer);
         }
     })
+    
+    // NOTE: This function was mostly internal or unused in main.js calls? 
+    // Wait, main.js does NOT call this. It calls checkSmartObjectFilterFX.
+    // I'll leave it but updated if needed. It has alerts in original.
+    
     if(list.length == 0){
-        alert("无此类图层");
-        return;
+        // alert("无此类图层");
+        return JSON.stringify({status: "success", message: "无此类图层"});
     }
     else{
-        var report = "以下组图层存在异常效果问题:\n";
+        var result = { status: "warning", message: "以下组图层存在异常效果问题", items: [] };
         for (var i = 0; i < list.length; i++) {
-            var layer = list[i];
-            report += layer.name() + "\n";
+            result.items.push({
+                id: list[i].id,
+                name: list[i].name(),
+                desc: "组效果"
+            });
         }
-        alert(report);
+        Layer.selectLayers(list);
+        return JSON.stringify(result);
     }
-    Layer.selectLayers(list);
 }
 //#endregion
 
@@ -272,13 +293,23 @@ function AmendMode() {
 function CheckSameLayerId() {
     var layerIdDict = CollectLayerIdDict();
     var result = CollectErrorIdLayerList(layerIdDict);
+    var resObj = { status: "success", items: [] };
+    
     if(result.errorLayerList.length > 0){
-        alert("已选中存在重复编号的图层, 重复的编号有：\n" + result.errorStr);
+        resObj.status = "warning";
+        resObj.message = "已选中存在重复编号的图层";
         Layer.selectLayers(result.errorLayerList);
+        for(var i=0; i<result.errorLayerList.length; i++){
+            resObj.items.push({
+                id: result.errorLayerList[i].id,
+                name: result.errorLayerList[i].name(),
+                desc: "重复编号"
+            });
+        }
+    } else {
+        resObj.message = "不存在重复编号图层";
     }
-    else{
-        alert("不存在重复编号图层");
-    }
+    return JSON.stringify(resObj);
 }
 
 function CollectLayerIdDict(){
@@ -317,15 +348,26 @@ function CollectErrorIdLayerList(layerIdDict){
 }
 //#endregion
 
-//#region 检查字体效果。投影距离2/3，角度130 | 描边大小2/1 | 同色同透明度
+//#region 检查字体效果
 function CheckTextEffect(){
     var errorLayerList = CollectTextEffectErrorLayer();
+    var result = { status: "success", items: [] };
+    
     if(errorLayerList.length <= 0){
-        alert("字体效果符合规范");
-        return;
+        result.message = "字体效果符合规范";
+    } else {
+        result.status = "warning";
+        result.message = "以下字体效果不合规范";
+        Layer.selectLayers(errorLayerList);
+         for(var i=0; i<errorLayerList.length; i++){
+            result.items.push({
+                id: errorLayerList[i].id,
+                name: errorLayerList[i].name(),
+                desc: "效果参数错误"
+            });
+        }
     }
-    PrintTextEffectError(errorLayerList);
-    Layer.selectLayers(errorLayerList);
+    return JSON.stringify(result);
 }
 
 function CollectTextEffectErrorLayer(){
@@ -345,35 +387,7 @@ function CollectTextEffectErrorLayer(){
 }
 
 function PrintTextEffectError(errorLayerList){
-    var errorStr = "以下字体效果不合规范：\n";
-    for(var i = 0; i < errorLayerList.length; i++){
-        var layer = errorLayerList[i];
-        if(!IsTextFrameFxSizeVaild(layer)){
-            var frameFXError = layer.name() + " 描边尺寸错误\n";
-            errorStr += frameFXError;
-        }
-        if(!IsTextFrameFxOverPrintOff(layer)){
-            var frameFXError = layer.name() + " 描边开启了叠印效果\n";
-            errorStr += frameFXError;
-        }
-        if(!IsTextDropShadowDistanceVaild(layer)){
-            var shadowError = layer.name() + " 投影距离错误\n";
-            errorStr += shadowError;
-        }
-        if(!IsTextDropShadowAngleVaild(layer)){
-            var shadowError = layer.name() + " 投影角度参数错误\n";
-            errorStr += shadowError;
-        }
-        if(!IsTextEffectColorVaild(layer)){
-            var colorError = layer.name() + " 投影描边 不同色\n";
-            errorStr += colorError;
-        }
-        if(!IsTextEffectOpacityVaild(layer)){
-            var colorError = layer.name() + " 投影描边 不同透明度\n";
-            errorStr += colorError;
-        }
-    }
-    alert(errorStr);
+    // Deprecated for direct use, logic moved to CheckTextEffect
 }
 
 function IsTextFrameFxSizeVaild(layer){
