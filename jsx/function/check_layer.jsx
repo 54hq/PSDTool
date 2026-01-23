@@ -27,96 +27,6 @@ function RenameLayers() {
 }
 //#endregion
 
-//#region 图层命名规范
-function StandardizeNames() {
-    var errorLayerInfoList = [];
-    Layer.loopLayers(function(layer){
-        if(Layer.isNoExportLayer(layer) || layer.isGroupMark()){
-            return;
-        }
-        var originalName = layer.name();
-        var standardizedName = GetNodeStandizeName(layer, originalName);
-        if(originalName == standardizedName){
-            return;
-        }
-        layer.setName(standardizedName);
-        errorLayerInfoList.push({
-            oldName : originalName,
-            newName : standardizedName
-        })
-    })
-    return ShowInvalidLayers(errorLayerInfoList);
-}
-
-function ShowInvalidLayers(invalidLayerNames) {
-    var result = { status: "success", items: [] };
-    if (invalidLayerNames.length > 0) {
-        result.status = "warning";
-        result.message = "以下图层名称被规范化:";
-        for (var i = 0; i < invalidLayerNames.length; i++) {
-             result.items.push({
-                 name: invalidLayerNames[i].oldName,
-                 desc: "-> " + invalidLayerNames[i].newName
-             });
-        }
-    } else {
-        result.message = "所有图层名称都符合规范。";
-    }
-    return JSON.stringify(result);
-}
-
-function GetNodeStandizeName(layerObject, originalName){
-    if(layerObject.isText()){
-        return GetStandizeTextLayerName(originalName);
-    }
-    else if(layerObject.isImage()){
-        return GetStandizeImageLayerName(originalName);
-    }
-    else if(layerObject.isGroup()){
-        return GetStandizeGroupLayerName(originalName);
-    }
-    else{
-        layerObject.select();
-        // alert(originalName + "是非法输出图层"); // 禁止 alert
-        return originalName;
-    }
-}
-
-function GetStandizeTextLayerName(name){
-    var match = GetNodeNameMatch(name);
-    return "Text" + match[2] + match[3];
-}
-
-function GetStandizeGroupLayerName(name){
-    if(IsSpecialLayoutLayer(name)){
-        return name;
-    }
-    return name.replace(/[^a-zA-Z0-9]/g, '');
-}
-
-function GetStandizeImageLayerName(name){
-    var prefix = name.slice(0, 2);
-    var hasCPrefix = (prefix === "C_");
-    var dashIndex = name.lastIndexOf('-');
-    if (dashIndex != -1) {
-        var front = name.slice(0, dashIndex);
-        var back = name.slice(dashIndex + 1);
-        if (hasCPrefix) {
-            front = prefix + front.slice(2).replace(/[^a-zA-Z0-9_]/g, '');
-        } else {
-            front = front.replace(/[^a-zA-Z0-9]/g, '');
-        }
-        back = back.replace(/\D/g, '');
-        return back ? front + "-" + back : front;
-    } else {
-        if (hasCPrefix) {
-            return prefix + name.slice(2).replace(/[^a-zA-Z0-9_]/g, '');
-        }
-        return name.replace(/[^a-zA-Z0-9]/g, '');
-    }
-}
-//#endregion
-
 //#region 检查是否存在组图层有图层效果
 function CheckGroupEffect() {
     var list = [];
@@ -146,19 +56,6 @@ function CheckGroupEffect() {
         Layer.selectLayers(list);
         return JSON.stringify(result);
     }
-}
-//#endregion
-
-//#region 删除空白图层
-function DeleteEmptyLayer() {
-    var list = [];
-    Layer.loopLayers(function(layer){
-        if (!Layer.isNoExportLayer(layer) && layer.isEmptyLayer()) {
-            list.push(layer.name());
-            Layer.deleteLayer(layer.id);
-        }
-    })
-    return list;
 }
 //#endregion
 

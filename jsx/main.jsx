@@ -1,19 +1,3 @@
-var standardizeLayerNames = function() {
-    try {
-        return StandardizeNames();
-    } catch (e) {
-        return JSON.stringify({status: "error", message: e.toString()});
-    }
-}
-
-var deleteEmptyLayer = function(){
-    try {
-        return DeleteEmptyLayer();
-    } catch (e) {
-        return JSON.stringify({status: "error", message: e.toString()});
-    }
-}
-
 var amendMode = function(){
     try {
         AmendMode();

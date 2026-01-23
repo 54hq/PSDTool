@@ -93,8 +93,6 @@ function selectLayer(layerId) {
 }
 
 function InitButtonListener(){
-    AddButtonListener("standardizeButton", "standardizeLayerNames()");
-    AddButtonListener("deleteEmptyLayerButton", "deleteEmptyLayer()");
     AddButtonListener("checkSameNameContentButton", "checkSameNameLayerContent()");
     AddButtonListener("checkOutOfBoundsButton", "checkImageOutOfBounds()");
     AddButtonListener("selectImgPrefixButton", "selectImgPrefixLayers()");
