@@ -101,7 +101,7 @@ function InitButtonListener(){
     AddButtonListener("openAllLayersButton", "checkAllLayersOpen()");
     
     document.getElementById("openSpecificationButton").addEventListener("click", () => {
-        csInterface.openURLInDefaultBrowser("https://doc.weixin.qq.com/doc/w3_AVgA3waFAOwWRTtxGSiSfCZryFZ7B?scode=AOwAYgeoAAkFbnVxkZAVgA3waFAOw");
+        csInterface.openURLInDefaultBrowser("https://doc.weixin.qq.com/doc/w3_AXkAzwY6AE4CNxOao6t9hQIW0Ta34?scode=AOwAYgeoAAkUQ2KF60AXkAzwY6AE4");
     });
 
     document.getElementById("clearResultsButton").addEventListener("click", () => {

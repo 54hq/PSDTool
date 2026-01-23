@@ -29,8 +29,8 @@ function CheckSameNameLayerContent() {
                 if (!CompareLayerSize(baseLayer, compareLayer)) {
                     errorLayerList.push(baseLayer);
                     errorLayerList.push(compareLayer);
-                    result.items.push({ id: baseLayer.id, name: baseLayer.name(), desc: "内容不同(参照)" });
-                    result.items.push({ id: compareLayer.id, name: compareLayer.name(), desc: "内容不同" });
+                    result.items.push({ id: baseLayer.id, name: baseLayer.name(), desc: "尺寸不同(参照)" });
+                    result.items.push({ id: compareLayer.id, name: compareLayer.name(), desc: "尺寸不同" });
                     break; // 只要有一对不同，就记录并跳出当前名字的检查
                 }
             }
@@ -39,10 +39,10 @@ function CheckSameNameLayerContent() {
 
     if (errorLayerList.length > 0) {
         result.status = "warning";
-        result.message = "以下同名图层内容不同";
+        result.message = "以下同名图层尺寸不同";
         Layer.selectLayers(errorLayerList);
     } else {
-        result.message = "所有同名图层尺寸一致（内容大概率一致）";
+        result.message = "所有同名图层尺寸一致";
     }
     return JSON.stringify(result);
 }
