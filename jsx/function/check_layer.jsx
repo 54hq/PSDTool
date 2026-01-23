@@ -69,6 +69,12 @@ function AmendMode() {
 }
 //#endregion
 
+function CompareLayerSize(layerA, layerB){
+    var boundsA = layerA.bounds()
+    var boundsB = layerB.bounds()
+    return (boundsA.width == boundsB.width) && (boundsA.height == boundsB.height)
+}
+
 //#region 检查重复编号图层
 function CheckSameLayerId() {
     var layerIdDict = CollectLayerIdDict();

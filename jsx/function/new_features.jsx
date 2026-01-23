@@ -154,7 +154,7 @@ function CheckAllLayersOpen() {
         if (!layer.visible()) {
             closedLayers.push(layer);
             layer.show(); // 打开图层
-            result.items.push({ id: layer.id, name: layer.name(), desc: "已打开" });
+            result.items.push({ id: layer.id, name: layer.name(), desc: "已打开图层" });
         }
     });
 
