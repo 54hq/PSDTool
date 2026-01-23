@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<ExtensionManifest Version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ExtensionBundleId="yyj.PSDTool" ExtensionBundleName="yyj.PSDTool" ExtensionBundleVersion="5.0.18">
+<ExtensionManifest Version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ExtensionBundleId="WY.PSDTool" ExtensionBundleName="WY.PSDTool" ExtensionBundleVersion="5.0.18">
     <Author>yyj</Author>
     <Contact mailto="**@abc.com" />
     <Abstract href="http://www.superslide2.com/" />
     <ExtensionList>
-        <Extension Id="yyj.PSDTool" Version="1.0" /> <!-- 插件ID 和 版本-->
+        <Extension Id="WY.PSDTool" Version="1.0" /> <!-- 插件ID 和 版本-->
     </ExtensionList>
 
     <ExecutionEnvironment>
@@ -24,7 +24,7 @@
 
     </ExecutionEnvironment>
     <DispatchInfoList>
-        <Extension Id="yyj.PSDTool">
+        <Extension Id="WY.PSDTool">
             <DispatchInfo>
                 <Resources>
                     <MainPath>./index.html</MainPath> <!-- 程序入口-->
