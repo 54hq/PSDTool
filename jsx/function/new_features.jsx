@@ -84,25 +84,25 @@ function CheckImageOutOfBounds() {
 }
 //#endregion
 
-//#region 选中 Img 或 9Img 开头的图层
+//#region 选中命名含 icon 的图层（不区分大小写）
 function SelectImgPrefixLayers() {
     var targetLayers = [];
     var result = { status: "success", items: [] };
     
     Layer.loopLayers(function(layer) {
         var name = layer.name();
-        if (name.indexOf("Img") === 0 || name.indexOf("9Img") === 0) {
+        if (name.toLowerCase().indexOf("icon") !== -1) {
             targetLayers.push(layer);
-            result.items.push({ id: layer.id, name: name, desc: "Img/9Img前缀" });
+            result.items.push({ id: layer.id, name: name, desc: "含icon" });
         }
     });
 
     if (targetLayers.length > 0) {
         Layer.selectLayers(targetLayers);
         result.status = "info";
-        result.message = "已选中 " + targetLayers.length + " 个相关图层";
+        result.message = "已选中 " + targetLayers.length + " 个Icon图层";
     } else {
-        result.message = "未找到以 Img 或 9Img 开头的图层";
+        result.message = "未找到命名含 icon 的图层";
     }
     return JSON.stringify(result);
 }
