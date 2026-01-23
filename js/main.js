@@ -93,11 +93,7 @@ function selectLayer(layerId) {
 }
 
 function InitButtonListener(){
-    AddButtonListener("checkFontButton", "checkFont()");
-    AddButtonListener("checkExportLayer", "checkExportLayer()");
     AddButtonListener("standardizeButton", "standardizeLayerNames()");
-    AddButtonListener("checkSameNameImageButton", "checkSameNameImage()");
-    AddButtonListener("checkSmartObjectFilterFXButton", "checkSmartObjectFilterFX()");
     AddButtonListener("deleteEmptyLayerButton", "deleteEmptyLayer()");
     AddButtonListener("checkSameNameContentButton", "checkSameNameLayerContent()");
     AddButtonListener("checkOutOfBoundsButton", "checkImageOutOfBounds()");
