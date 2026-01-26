@@ -10,6 +10,12 @@ function CheckSameNameLayerContent() {
             return;
         }
         var name = layer.name();
+
+        // 排除图层命名#9和Temp开头的
+        if (name.indexOf("#9") === 0 || name.indexOf("Temp") === 0) {
+            return;
+        }
+
         if (!nameDict[name]) {
             nameDict[name] = [];
         }
